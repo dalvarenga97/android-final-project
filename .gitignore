@@ -1,0 +1,58 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+*.egg-info/
+*.egg
+
+# Virtual Environment
+venv/
+env/
+ENV/
+.venv/
+.env/
+
+# Flask
+instance/
+.webassets-cache
+
+# Docker
+*.dockerfile
+docker-compose.override.yml
+docker-compose.prod.yml
+docker-compose.dev.yml
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-workspace
+*.sublime-project
+
+# Logs
+*.log
+
+# Coverage reports
+htmlcov/
+.coverage
+.coverage.*
+nosetests.xml
+coverage.xml
+*.cover
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Environment variables
+.env
+*.env
+
+# Miscellaneous
+*.DS_Store
+*.bak
+*.tmp
+*.tmp.*

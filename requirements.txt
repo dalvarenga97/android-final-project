@@ -1,0 +1,5 @@
+Flask
+SQLAlchemy
+psycopg2-binary
+flask-restx
+Flask-JWT-Extended 
