@@ -4,6 +4,8 @@ from flask_jwt_extended import JWTManager
 from config import Config
 from api.auth_api import auth_ns
 from api.pet_api import pet_ns
+from api.appointment_api import appointment_ns
+from api.service_api import service_ns
 from db import Session, create_default_user, revoked_tokens
 
 app = Flask(__name__)
@@ -21,8 +23,14 @@ authorizations = {
     }
 }
 
-api = Api(app, version='1.0', title='Veterinary API', description='A simple Veterinary API',
-          authorizations=authorizations, security='Bearer Auth')
+api = Api(
+    app, 
+    version='1.0', 
+    title='Veterinary API', 
+    description='A simple Veterinary API',
+    authorizations=authorizations, 
+    security='Bearer Auth'
+)
 
 # Call the function to create the default user
 create_default_user()
@@ -35,6 +43,8 @@ def check_if_token_revoked(jwt_header, jwt_payload):
 # Register namespaces
 api.add_namespace(auth_ns)
 api.add_namespace(pet_ns)
+api.add_namespace(appointment_ns)
+api.add_namespace(service_ns)
 
 if __name__ == '__main__':
-    app.run(debug=True) 
+    app.run(debug=True)

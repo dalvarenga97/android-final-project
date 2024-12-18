@@ -1,8 +1,8 @@
 from flask import request, jsonify
 from flask_restx import Namespace, Resource, fields
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from domain import Pet  # Ensure this imports the Pet model
-from db import Session  # Import the Session from db.py
+from domain import Pet
+from db import Session 
 
 pet_ns = Namespace('pets', description='Pet operations')
 
@@ -86,15 +86,23 @@ class PetResource(Resource):
             session.close()
             pet_ns.abort(404, f"Pet {id} not found")
         
-        pet.name = data.get('name', pet.name)
-        pet.species = data.get('species', pet.species)
-        pet.breed = data.get('breed', pet.breed)
-        pet.age = data.get('age', pet.age)
-        pet.weight = data.get('weight', pet.weight)
+        try:
+            pet.name = data.get('name', pet.name)
+            pet.species = data.get('species', pet.species)
+            pet.breed = data.get('breed', pet.breed)
+            pet.age = data.get('age', pet.age)
+            pet.weight = data.get('weight', pet.weight)
+            
+            session.commit()  # Commit the transaction
+        except Exception as e:
+            session.rollback()  # Rollback in case of error
+            print(f"Error updating pet: {e}")  # Log the error for debugging
+            pet_ns.abort(500, "Internal server error")
+        finally:
+            session.close()
         
-        session.commit()
-        session.close()
         return pet
+
 
     @pet_ns.doc('delete_pet')
     @pet_ns.response(204, 'Pet deleted')
